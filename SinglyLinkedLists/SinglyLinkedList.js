@@ -47,23 +47,32 @@ export default class SinglyLinkedList {
     return this;
   }
 
-  pop(index) {
-    if (index >= this.length || index < 0) {
+  pop(index = -1) {
+    if (index >= this.length) {
       throw new Error(
-        "Error: index should be positive & strictly lower than " + this.length
+        "Index should be positive & strictly lower than " + this.length
       );
     }
     if (this.length === 0) {
-      throw new Error("Error: list is already empty.")
+      return this;
     }
     let node = this.head;
+    let c = 0;
+    if (index === -1) { // Remove the last one
+      for (let i = 0; i < this.length - 2; i++) {
+        node = node.next;
+      }
+      node.next = null;
+      this.tail = node;
+      this.length--;
+      return this;
+    }
     if (index === 0) {
       this.head = node.next;
     }
-    let c = 0;
     while (node && node.next) {
       let nextNode = node.next;
-      if (c + 1 === index) { // Ignore next node
+      if (c + 1 === index) { // Replace next node by the following one
         node.next = nextNode?.next || null;
       }
       node = node.next;

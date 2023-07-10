@@ -48,20 +48,27 @@ export default class DoublyLinkedList {
     return this;
   }
 
-  pop(index) {
-    if (index >= this.length || index < 0) {
+  pop(index = -1) {
+    if (index >= this.length) {
       throw new Error(
-        "Error: index should be positive & strictly lower than " + this.length
+        "Index should be positive & strictly lower than " + this.length
       );
     }
     if (this.length === 0) {
-      throw new Error("Error: list is already empty.")
+      return this;
     }
     let node = this.head;
     if (index === 0) {
       this.head = node.next;
     }
     let c = 0;
+    if (index === -1) { // Remove the last one
+      let penultimateNode = this.tail.prev;
+      penultimateNode.next = null;
+      this.tail = penultimateNode;
+      this.length--;
+      return this;
+    }
     while (node && node.next) {
       let nextNode = node.next;
       if (c + 1 === index) { // Ignore next node
@@ -78,7 +85,7 @@ export default class DoublyLinkedList {
   insert(data, index = 0) {
     if (index >= this.length) {
       throw new Error(
-        "Error: index should be strictly lower than " + this.length
+        "EIndex should be strictly lower than " + this.length
       );
     }
     const newNode = new Node(data);

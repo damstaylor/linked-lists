@@ -8,4 +8,6 @@ list.push("4");
 list.push("5");
 list.unshift("0");
 list.print()
+list.pop();
+list.print();
 //console.log(list.findIndex("1"));

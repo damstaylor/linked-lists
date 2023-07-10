@@ -7,4 +7,5 @@ list.push("3");
 list.push("4");
 list.push("5");
 list.print()
-console.log(list.findIndex("1"));
+list.pop();
+list.print();
