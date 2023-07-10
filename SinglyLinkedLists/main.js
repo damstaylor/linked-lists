@@ -1,4 +1,4 @@
-import SinglyLinkedList from "./classes/SinglyLinkedList.js";
+import SinglyLinkedList from "./SinglyLinkedList.js";
 
 let list = new SinglyLinkedList();
 list.push("1");
