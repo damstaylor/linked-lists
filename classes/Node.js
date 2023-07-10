@@ -5,7 +5,7 @@ export default class Node {
   }
 
   toString() {
-    return this.data + "(" + (this.next && this.next.data ? this.next.data : null) + ")";
+    return this.data + "(" + (this.next?.data || null) + ")";
   }
 }
   
