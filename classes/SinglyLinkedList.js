@@ -34,38 +34,42 @@ export default class SinglyLinkedList {
     const newNode = new Node(data);
     if (!this.head) {
       this.head = newNode;
+      this.tail = newNode;
     } else {
       let node = this.head;
       while (node.next) {
         node = node.next;
       }
       node.next = newNode;
+      this.tail = node.next;
     }
     this.length++;
     return this;
   }
 
   pop(index) {
-    if (index >= this.length) {
+    if (index >= this.length || index < 0) {
       throw new Error(
-        "Error: index should be strictly lower than " + this.length
+        "Error: index should be positive & strictly lower than " + this.length
       );
+    }
+    if (this.length === 0) {
+      throw new Error("Error: list is already empty.")
     }
     let node = this.head;
     if (index === 0) {
       this.head = node.next;
-    } else {
-      let c = 0;
-      while (node && node.next) {
-        let nextNode = node.next;
-        if (c + 1 === index) {
-          // Ignore next node
-          node.next = nextNode && nextNode.next ? nextNode.next : null;
-        }
-        node = node.next;
-        c++;
-      }
     }
+    let c = 0;
+    while (node && node.next) {
+      let nextNode = node.next;
+      if (c + 1 === index) { // Ignore next node
+        node.next = nextNode?.next || null;
+      }
+      node = node.next;
+      c++;
+    }
+    this.tail = node;
     this.length--;
     return this;
   }
@@ -88,23 +92,25 @@ export default class SinglyLinkedList {
       node = node.next;
       c++;
     }
+    this.tail = node;
     this.length++;
     return this;
   }
 
   unshift(data) {
     const newNode = new Node(data);
+    let node = newNode;
     if (!this.head) {
       this.head = newNode;
     } else {
       const head = this.head;
-      let node = newNode;
       node.next = head;
       this.head = node;
       while (node.next) {
         node = node.next;
       }
     }
+    this.tail = node;
     this.length++;
     return this;
   }
